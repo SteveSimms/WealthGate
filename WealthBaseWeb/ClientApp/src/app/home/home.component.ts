@@ -21,11 +21,9 @@ import {HttpClient} from "@angular/common/http";
         <th>
           Market cap
         </th>
-
         <th>
           <button class="btn btn-primary">Buy</button>
         </th>
-
         <th>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
             <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
@@ -34,7 +32,6 @@ import {HttpClient} from "@angular/common/http";
       </tr>
       </thead>
       <tbody>
-
       <tr *ngFor="let crypto of cryptoData">
         <td >
           <div class="d-flex justify-content-space-around">
@@ -46,24 +43,18 @@ import {HttpClient} from "@angular/common/http";
               </div>
             </div>
           </div>
-
         </td>
-
         <td>
           <div>
-            <h4> {{crypto.name}}</h4>
+            <h4> $ {{formatter.format(crypto.price)}}</h4>
             <div>
               {{crypto.symbol}}
             </div>
           </div>
         </td>
-
       </tr>
       </tbody>
-
     </table>
-
-
 
   </div>
 </div>
@@ -100,12 +91,16 @@ getApiData(){
 }
 
 
-
-
+ formatter = new Intl.NumberFormat('en-us', {
+      style: 'currency',
+      currency: 'USD',
+    });
+ // formatter.format()
+ //  }
 
 //Todo: [x]Call Nomics api
-  //Todo[]: render Api data in a table  //todo: add styling install tailwind find free template initialize git repo
-
+  //Todo[x]: render Api data in a table  //todo: add styling install tailwind find free template initialize git repo
+  //todo:[x] comma seperated internationalized monetary format
   //todo:[] break out into seperate component if needed
   //todo:[] Grok nav flow on coin (click) user should be navigated to a currency details page dynamiclly
   //todo:[] grok auth flow
