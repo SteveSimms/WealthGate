@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-crypto-trading',
@@ -103,18 +104,20 @@ import {HttpClient} from "@angular/common/http";
     `,
   ],
 })
-export class CryptoTradingComponent  {
+export class CryptoTradingComponent implements OnDestroy, OnInit{
   greeting = 'Multiverse';
   NOMICS_KEY = '8d6d783f836ba7978b8a72c04f45b1744fec01e3';
   NOMICS_URL = `https://api.nomics.com/v1/currencies/ticker?key=${this.NOMICS_KEY}&interval=1d,30d&convert=USD&per-page=100&page=1`;
 
   public cryptoData: NomicsAPIData[] = [];
+  private _apiSubscription: Subscription | undefined;
 
   constructor(private http: HttpClient) {
-    this.getApiData();
+    // this.getApiData();
   }
 
   getApiData() {
+    this._apiSubscription =
     this.http.get<any>(this.NOMICS_URL).subscribe(
       (result) => {
         this.cryptoData = result;
@@ -123,7 +126,12 @@ export class CryptoTradingComponent  {
       (error) => console.error(error)
     );
   }
-
+ngOnDestroy(){
+    this._apiSubscription?.unsubscribe();
+}
+ngOnInit(){
+  this.getApiData();
+}
   formatNumber(value: any) {
     this.formatter = new Intl.NumberFormat('en-us', {
       style: 'currency',
@@ -143,9 +151,10 @@ export class CryptoTradingComponent  {
   //Todo: [x]Call Nomics api
   //Todo[x]: render Api data in a table  //todo: add styling install tailwind find free template initialize git repo
   //todo:[x] comma seperated internationalized monetary format
-  //todo: [] add dark mode based on system settings
+  //todo: [] add dark mode based on system settings wait untill bootstrap realeases feature
+  //todo:[x] unsubscribe from api call onDestroy solves the 429 error
   //todo:[x]style the buy button
-  //todo:[] write logic that renders justy the top 10 currencies decide wether too implement paginantion or reveal the rest of the coins on cclick
+  //todo:[] write logic that renders justy the top 10 currencies decide wether too implement paginantion or reveal the rest of the coins on click
   //todo:[] break out into seperate component if needed
   //todo:[] Grok nav flow on coin (click) user should be navigated to a currency details page dynamiclly
   //todo:[] grok auth flow sign in with coinbbase or gmail
@@ -155,8 +164,7 @@ export class CryptoTradingComponent  {
 }
 
 
-  // constructor() { }
-  //
+
 
 
 

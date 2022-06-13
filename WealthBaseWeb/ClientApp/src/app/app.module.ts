@@ -28,6 +28,7 @@ import { CryptoTradingComponent } from './crypto-trading/crypto-trading.componen
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      {path: 'crypto-trading', component: CryptoTradingComponent, },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])

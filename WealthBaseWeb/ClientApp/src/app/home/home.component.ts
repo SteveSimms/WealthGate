@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-home',
   template: `
 
-    <app-crypto-trading></app-crypto-trading>
+<!--    <app-crypto-trading></app-crypto-trading>-->
  `,
   styles: [
     `
