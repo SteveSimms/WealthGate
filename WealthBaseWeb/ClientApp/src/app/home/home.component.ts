@@ -97,7 +97,7 @@ import {HttpClient} from "@angular/common/http";
       stroke-width: 1px;
       cursor: pointer;
     }
-  }`]
+  `]
 
 })
 export class HomeComponent {
