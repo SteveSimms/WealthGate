@@ -60,7 +60,8 @@ import {HttpClient} from "@angular/common/http";
 
         <td>
           <div>
-            <h4>{{formatter.format(crypto.market_cap)}}</h4>
+            <h4>{{formatter.format(crypto.market_cap).toString() }} </h4>
+
           </div>
         </td>
 
@@ -73,9 +74,8 @@ import {HttpClient} from "@angular/common/http";
         </td>
         <td>
           <div>
-            <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star mx-2" viewBox="0 0 16 16">
-              <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-            </svg>
+            <svg fill="none" height="23" viewBox="0 0 24 23" width="24" filled="1" color="var(--primary)" focusable="false" aria-hidden="true" class="WatchStar__StarIcon-sc-1x0suc9-4 bxTlIr"><path d="M12.713 1.443l2.969 6.015 6.637.965a.794.794 0 01.44 1.354l-4.804 4.681 1.135 6.612a.794.794 0 01-1.152.837L12 18.787l-5.938 3.121a.795.795 0 01-1.152-.838l1.134-6.612L1.24 9.777a.794.794 0 01.44-1.354l6.638-.965 2.968-6.015a.795.795 0 011.425 0z" stroke="#becada"></path></svg>
+
           </div>
         </td>
       </tr>
@@ -88,9 +88,15 @@ import {HttpClient} from "@angular/common/http";
 
   `,
   styles:[`
-    .row{
-    display: flex;
-    justify-content: space-around;
+    .row {
+        display: flex;
+        justify-content: space-around;
+    }
+    .bxTlIr {
+      /*fill: <color> =  rbga(#1b6ec2);>*/
+      stroke-width: 1px;
+      cursor: pointer;
+    }
   }`]
 
 })
@@ -116,22 +122,31 @@ getApiData(){
   }, error => console.error(error))
 }
 
+formatNumber(value: any){
+  this.formatter = new Intl.NumberFormat('en-us', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
+}
  formatter = new Intl.NumberFormat('en-us', {
       style: 'currency',
       currency: 'USD',
     });
- // formatter.format()
- //  }
+
+
+  roundAccurately = (num: any,  decimalPlaces: any) =>
+                    Number(Math.round(Number(num + "e" + decimalPlaces)) + "e-" + decimalPlaces)
 
 //Todo: [x]Call Nomics api
   //Todo[x]: render Api data in a table  //todo: add styling install tailwind find free template initialize git repo
   //todo:[x] comma seperated internationalized monetary format
-  //todo:[]style the buy button
-  //todo: write logic that renders justy the top 10 currencies decide wether too implement paginantion or reveal the rest of the coins on cclick
+  //todo: [] add dark mode based on system settings
+  //todo:[x]style the buy button
+  //todo:[] write logic that renders justy the top 10 currencies decide wether too implement paginantion or reveal the rest of the coins on cclick
   //todo:[] break out into seperate component if needed
   //todo:[] Grok nav flow on coin (click) user should be navigated to a currency details page dynamiclly
-  //todo:[] grok auth flow
+  //todo:[] grok auth flow sign in with coinbbase or gmail
   //todo:[] create watchlist model
   // save[] currency on click to watchlist model
   //Todo:[] READ watchlist and display on page
