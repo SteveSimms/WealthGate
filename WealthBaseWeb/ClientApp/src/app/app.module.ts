@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CryptoTradingComponent } from './crypto-trading/crypto-trading.component';
+import { DynamicCoinComponent } from './dynamic-coin/dynamic-coin.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CryptoTradingComponent } from './crypto-trading/crypto-trading.componen
     CounterComponent,
     FetchDataComponent,
     CryptoTradingComponent,
+    DynamicCoinComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { CryptoTradingComponent } from './crypto-trading/crypto-trading.componen
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      {path: 'crypto-trading', component: CryptoTradingComponent, },
+      {path: 'trade', component: CryptoTradingComponent, },
+      {path: 'price', component: DynamicCoinComponent, },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])

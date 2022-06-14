@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Subscription} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-crypto-trading',
@@ -32,7 +33,7 @@ import {Subscription} from "rxjs";
                   />
                 </div>
                 <div class="mx-3">
-                  <h4>{{ crypto.name }}</h4>
+                  <h4><a [routerLink]="['/price']" [state] = crypto >{{ crypto.name }}</a></h4>
                   <div>
                     {{ crypto.symbol }}
                   </div>
@@ -105,6 +106,7 @@ import {Subscription} from "rxjs";
   ],
 })
 export class CryptoTradingComponent implements OnDestroy, OnInit{
+  log = console.log;
   greeting = 'Multiverse';
   NOMICS_KEY = '8d6d783f836ba7978b8a72c04f45b1744fec01e3';
   NOMICS_URL = `https://api.nomics.com/v1/currencies/ticker?key=${this.NOMICS_KEY}&interval=1d,30d&convert=USD&per-page=100&page=1`;
@@ -112,7 +114,9 @@ export class CryptoTradingComponent implements OnDestroy, OnInit{
   public cryptoData: NomicsAPIData[] = [];
   private _apiSubscription: Subscription | undefined;
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, router: Router, private activatedRoute: ActivatedRoute) {
+    this.log(router.getCurrentNavigation()?.extras.state);
     // this.getApiData();
   }
 
@@ -131,6 +135,7 @@ ngOnDestroy(){
 }
 ngOnInit(){
   this.getApiData();
+
 }
   formatNumber(value: any) {
     this.formatter = new Intl.NumberFormat('en-us', {
@@ -142,25 +147,18 @@ ngOnInit(){
     style: 'currency',
     currency: 'USD',
   });
-
+  crypto = this.cryptoData;
   roundAccurately = (num: any, decimalPlaces: any) =>
     Number(
       Math.round(Number(num + 'e' + decimalPlaces)) + 'e-' + decimalPlaces
     );
 
-  //Todo: [x]Call Nomics api
-  //Todo[x]: render Api data in a table  //todo: add styling install tailwind find free template initialize git repo
-  //todo:[x] comma seperated internationalized monetary format
-  //todo: [] add dark mode based on system settings wait untill bootstrap realeases feature
-  //todo:[x] unsubscribe from api call onDestroy solves the 429 error
-  //todo:[x]style the buy button
-  //todo:[] write logic that renders justy the top 10 currencies decide wether too implement paginantion or reveal the rest of the coins on click
-  //todo:[] break out into seperate component if needed
-  //todo:[] Grok nav flow on coin (click) user should be navigated to a currency details page dynamiclly
-  //todo:[] grok auth flow sign in with coinbbase or gmail
-  //todo:[] create watchlist model
-  // save[] currency on click to watchlist model
-  //Todo:[] READ watchlist and display on page
+
+  gotoDynamic() {
+    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
+    // this.router.navigateByUrl('/dynamic', { state: this.cryptoData });
+  }
+
 }
 
 
