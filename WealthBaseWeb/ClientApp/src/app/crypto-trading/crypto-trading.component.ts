@@ -33,7 +33,7 @@ import {ActivatedRoute, Router} from "@angular/router";
                   />
                 </div>
                 <div class="mx-3">
-                  <h4><a [routerLink]="['/price']" [state] = crypto style="text-decoration: none">{{ crypto.name }}</a></h4>
+                  <h4><a [routerLink]="['/price']" [state] = crypto class="text-black" style="text-decoration: none">{{ crypto.name }}</a></h4>
                   <div>
                     {{ crypto.symbol }}
                   </div>
