@@ -7,22 +7,22 @@ const log = console.log;
   template: `
 
 
-    <div  *ngFor="let coin of historyState" class="row row-cols-1 row-cols-md-2 g-4">
-      <div class="col">
-        <div class="card">
+    <mat-card *ngFor="let coin of historyState" class="row row-cols-1 row-cols-md-2 g-4 text-center">
+            <div class="col">
           <img
+            mat-card-md-image
             [src]="coin?.logo_url"
-            style="height: 32px; width: 32px;"
             class="card-img-top" alt="...">
-          <h4>{{coin?.name}}</h4>
-          <p>{{coin?.symbol}}</p>
-          <div class="card-body">
-            <h5 class="card-title"> {{coin.name}}</h5>
+          <mat-card-title>{{coin?.name}}</mat-card-title>
+          <mat-card-subtitle>{{coin?.symbol}} $ {{coin.price}}</mat-card-subtitle>
+
+          <mat-card-content >
+            <mat-card-title class="card-title"> {{coin.name}}</mat-card-title>
             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </mat-card-content>
+            </div>
+
+    </mat-card>
   `,
   styles: [
   ]
